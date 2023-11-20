@@ -15,6 +15,7 @@ public class Step1 {
 
         gamePrint();
         System.out.println(PLAYER_PREFIX + Arrays.toString(playerCard()));
+        System.out.println(DEALER_PREFIX + Arrays.toString(dealerCard()));
     }
 
     public static void gamePrint() {
@@ -31,5 +32,11 @@ public class Step1 {
     }
 
     // 딜러 숫자 생성
+    public static int[] dealerCard() {
+        Random random = new Random();
+        int[] card = new int[1];
+        card[0] = random.nextInt(11) + 1;
+        return card;
+    }
 
 }
