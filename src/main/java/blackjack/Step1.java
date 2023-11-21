@@ -35,6 +35,7 @@ public class Step1 {
                 break;
             }
         }
+        System.out.println("게임을 종료합니다.\n플레이해주셔서 감사합니다.");
 
 
     }
@@ -75,7 +76,7 @@ public class Step1 {
     public static void gameRecord(String winner) {
         if (winner.equals("당신이 이겼습니다.")) {
             winCount++;
-        } else if (winner.equals("딜러가 이겼습니다")) {
+        } else if (winner.equals("딜러가 이겼습니다.")) {
             loseCount++;
         } else {
             tieCount++;
