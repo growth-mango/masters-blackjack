@@ -8,6 +8,7 @@ public class Step1 {
     private static int game = 1;
     private static final String PLAYER_PREFIX = "You   : ";
     private static final String DEALER_PREFIX = "Dealer: ";
+    private static final String RECORD_PREFIX = "현재 전적: ";
 
     public static void main(String[] args) {
         System.out.println("간단 카드 게임을 시작합니다.\n");
@@ -20,6 +21,7 @@ public class Step1 {
         System.out.println(PLAYER_PREFIX + Arrays.toString(playerCard()));
         System.out.println(DEALER_PREFIX + Arrays.toString(dealerCard()));
         System.out.println(winnerDecision(playerCard(), dealerCard()));
+        gameRecord(winnerDecision(playerCard(), dealerCard()));
     }
 
     public static void gamePrint() {
@@ -53,6 +55,27 @@ public class Step1 {
             return "비겼습니다.";
         }
     }
+
+    // 현재 전적 출력 로직
+    public static void gameRecord(String winner) {
+        int winCount = 1;
+        int loseCount = 1;
+        int tieCount = 1;
+
+        System.out.print("현재 전적: ");
+        if (winner.equals("당신이 이겼습니다.")) {
+            System.out.print(winCount + "승 ");
+            winCount++;
+        } else if (winner.equals("딜러가 이겼습니다")) {
+            System.out.print(loseCount + "패 ");
+            loseCount++;
+        } else {
+            System.out.print(tieCount + "무");
+            tieCount++;
+        }
+    }
+
+    // 게임 진행 여부 입력받기
 
 
 }
