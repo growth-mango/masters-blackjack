@@ -14,8 +14,12 @@ public class Step1 {
 
 
         gamePrint();
+        int[] playerCards = playerCard();
+        int[] dealerCards = dealerCard();
+
         System.out.println(PLAYER_PREFIX + Arrays.toString(playerCard()));
         System.out.println(DEALER_PREFIX + Arrays.toString(dealerCard()));
+        System.out.println(winnerDecision(playerCard(), dealerCard()));
     }
 
     public static void gamePrint() {
@@ -39,4 +43,17 @@ public class Step1 {
         return card;
     }
 
+    // 승자 결정 로직
+    public static String winnerDecision(int[] playerCard, int[] dealerCard) {
+        if (playerCard[0] > dealerCard[0]) {
+            return "당신이 이겼습니다.";
+        } else if (playerCard[0] < dealerCard[0]) {
+            return "딜러가 이겼습니다.";
+        } else {
+            return "비겼습니다.";
+        }
+    }
+
+
 }
+
