@@ -4,64 +4,61 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Step1 {
+public class PracticeStep1 {
     private static final String GAME_PREFIX = "Game ";
     private static int game = 1;
     private static final String PLAYER_PREFIX = "You   : ";
     private static final String DEALER_PREFIX = "Dealer: ";
+    private static int win = 0;
+    private static int lose = 0;
+    private static int tie = 0;
     private static final String RECORD_PREFIX = "현재 전적: ";
-    private static int winCount = 0;
-    private static int loseCount = 0;
-    private static int tieCount = 0;
 
     public static void main(String[] args) {
-        System.out.println("간단 카드 게임을 시작합니다.\n");
+        System.out.println("간단 카드 게임을 시작합니다.");
 
         while (true) {
-            gamePrint(); // Game 1
+            System.out.println();
+            gamePrint();
 
-            int[] playerCards = playerCard(); // 플레이어 카드 셋업
-            int[] dealerCards = dealerCard(); // 딜러 카드 셋업
+            int[] playerCards = playerCard();
+            int[] dealerCards = dealerCard();
+            System.out.println(PLAYER_PREFIX + Arrays.toString(playerCards)); // 플레이어 카드 출력
+            System.out.println(DEALER_PREFIX + Arrays.toString(dealerCards)); // 딜러 카드 출력
 
-            System.out.println(PLAYER_PREFIX + Arrays.toString(playerCards)); // 출력
-            System.out.println(DEALER_PREFIX + Arrays.toString(dealerCards));
-
-            String winner = winnerDecision(playerCards, dealerCards);
-            System.out.println(winner); // OO이이겼습니다.
-
-            gameRecord(winner); // 현재 전적
+            System.out.println(winnerDecision(playerCards, dealerCards)); // 위너 출력
+            gameRecord(winnerDecision(playerCards, dealerCards)); // 전적 출력
 
             if (!getMoreGame()) {
                 break;
             }
         }
         System.out.println("게임을 종료합니다.\n플레이해주셔서 감사합니다.");
-
-
     }
 
+    // game 몇 회 차인지 출력
     public static void gamePrint() {
         System.out.println(GAME_PREFIX + game);
-        game++;
+        game++; // gamePrint() 메서드가 호출될 때 마다 +1 됨
     }
 
-    // 플레이어 숫자 생성
+    // 플레이어 카드 출력 // 1에서 11사이
     public static int[] playerCard() {
-        Random random = new Random();
-        int[] card = new int[1];
-        card[0] = random.nextInt(11) + 1; // 1부터 11사이의 숫자 생성
-        return card;
-    }
-
-    // 딜러 숫자 생성
-    public static int[] dealerCard() {
         Random random = new Random();
         int[] card = new int[1];
         card[0] = random.nextInt(11) + 1;
         return card;
     }
 
-    // 승자 결정 로직
+    // 딜러의 카드 출력 // 1에서 11 사이
+    public static int[] dealerCard() {
+        Random random = new Random();
+        int[] card = new int[1];
+        card[0] = random.nextInt(11) + 1; // 1부터 11사이 숫자 출력
+        return card;
+    }
+
+    // 승패 결정 로직
     public static String winnerDecision(int[] playerCard, int[] dealerCard) {
         if (playerCard[0] > dealerCard[0]) {
             return "당신이 이겼습니다.";
@@ -72,45 +69,44 @@ public class Step1 {
         }
     }
 
-    // 현재 전적 출력 로직
+    // 전적 출력 로직
     public static void gameRecord(String winner) {
         if (winner.equals("당신이 이겼습니다.")) {
-            winCount++;
+            win++;
         } else if (winner.equals("딜러가 이겼습니다.")) {
-            loseCount++;
+            lose++;
         } else {
-            tieCount++;
+            tie++;
         }
 
         String record = "";
-        if (winCount > 0) {
-            record += winCount + "승 ";
+        if (win > 0) {
+            record += win + "승 ";
         }
-        if (tieCount > 0) {
-            record += tieCount + "무 ";
+        if (tie > 0) {
+            record += tie + "무 ";
         }
-        if (loseCount > 0) {
-            record += loseCount + "패";
+        if (lose > 0) {
+            record += lose + "패";
         }
+
         System.out.println(RECORD_PREFIX + record);
     }
 
-    // 게임 진행 여부 입력받기
+    // 게임 재진행 여부 확인
     public static boolean getMoreGame() {
         Scanner sc = new Scanner(System.in);
-        String input;
+        System.out.print("한 게임 더 하시겠습니까? (Y / N) ");
+        String answer = sc.nextLine();
 
         while (true) {
-            System.out.print("한 게임 더 하시겠습니까? (Y / N) ");
-            input = sc.nextLine();
-
-            if (input.equalsIgnoreCase("Y")) {
+            if (answer.equalsIgnoreCase("N")) {
+                break;
+            } else if (answer.equalsIgnoreCase("Y")) {
                 return true;
-            } else if (input.equalsIgnoreCase("N")) {
-                return false;
             }
             System.out.println("잘못 입력하셨습니다.");
         }
+        return false;
     }
 }
-
