@@ -2,6 +2,7 @@ package blackjack;
 
 import java.util.Arrays;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Step1 {
     private static final String GAME_PREFIX = "Game ";
@@ -22,6 +23,7 @@ public class Step1 {
         System.out.println(DEALER_PREFIX + Arrays.toString(dealerCard()));
         System.out.println(winnerDecision(playerCard(), dealerCard()));
         gameRecord(winnerDecision(playerCard(), dealerCard()));
+        getMoreGame();
     }
 
     public static void gamePrint() {
@@ -76,6 +78,22 @@ public class Step1 {
     }
 
     // 게임 진행 여부 입력받기
+    public static boolean getMoreGame() {
+        Scanner sc = new Scanner(System.in);
+        String input;
+
+        while (true) {
+            System.out.print("한 게임 더 하시겠습니까? (Y / N) ");
+            input = sc.nextLine();
+
+            if (input.equalsIgnoreCase("Y")) {
+                return true;
+            } else if (input.equalsIgnoreCase("N")) {
+                return false;
+            }
+            System.out.println("잘못 입력하셨습니다.");
+        }
+    }
 
 
 }
