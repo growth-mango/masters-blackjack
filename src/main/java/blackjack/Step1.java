@@ -60,21 +60,29 @@ public class Step1 {
 
     // 현재 전적 출력 로직
     public static void gameRecord(String winner) {
-        int winCount = 1;
-        int loseCount = 1;
-        int tieCount = 1;
+        int winCount = 0;
+        int loseCount = 0;
+        int tieCount = 0;
 
-        System.out.print("현재 전적: ");
         if (winner.equals("당신이 이겼습니다.")) {
-            System.out.print(winCount + "승 ");
             winCount++;
         } else if (winner.equals("딜러가 이겼습니다")) {
-            System.out.print(loseCount + "패 ");
             loseCount++;
         } else {
-            System.out.print(tieCount + "무");
             tieCount++;
         }
+
+        String record = "";
+        if (winCount > 0) {
+            record += winCount + "승 ";
+        }
+        if (tieCount > 0) {
+            record += tieCount + "무 ";
+        }
+        if (loseCount > 0) {
+            record += loseCount + "패";
+        }
+        System.out.println(RECORD_PREFIX + record);
     }
 
     // 게임 진행 여부 입력받기
