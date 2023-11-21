@@ -10,20 +10,33 @@ public class Step1 {
     private static final String PLAYER_PREFIX = "You   : ";
     private static final String DEALER_PREFIX = "Dealer: ";
     private static final String RECORD_PREFIX = "현재 전적: ";
+    private static int winCount = 0;
+    private static int loseCount = 0;
+    private static int tieCount = 0;
 
     public static void main(String[] args) {
         System.out.println("간단 카드 게임을 시작합니다.\n");
 
+        while (true) {
+            gamePrint(); // Game 1
 
-        gamePrint();
-        int[] playerCards = playerCard();
-        int[] dealerCards = dealerCard();
+            int[] playerCards = playerCard(); // 플레이어 카드 셋업
+            int[] dealerCards = dealerCard(); // 딜러 카드 셋업
 
-        System.out.println(PLAYER_PREFIX + Arrays.toString(playerCard()));
-        System.out.println(DEALER_PREFIX + Arrays.toString(dealerCard()));
-        System.out.println(winnerDecision(playerCard(), dealerCard()));
-        gameRecord(winnerDecision(playerCard(), dealerCard()));
-        getMoreGame();
+            System.out.println(PLAYER_PREFIX + Arrays.toString(playerCards)); // 출력
+            System.out.println(DEALER_PREFIX + Arrays.toString(dealerCards));
+
+            String winner = winnerDecision(playerCards, dealerCards);
+            System.out.println(winner); // OO이이겼습니다.
+
+            gameRecord(winner); // 현재 전적
+
+            if (!getMoreGame()) {
+                break;
+            }
+        }
+
+
     }
 
     public static void gamePrint() {
@@ -60,10 +73,6 @@ public class Step1 {
 
     // 현재 전적 출력 로직
     public static void gameRecord(String winner) {
-        int winCount = 0;
-        int loseCount = 0;
-        int tieCount = 0;
-
         if (winner.equals("당신이 이겼습니다.")) {
             winCount++;
         } else if (winner.equals("딜러가 이겼습니다")) {
