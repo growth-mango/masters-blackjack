@@ -1,5 +1,9 @@
 package blackjack;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Step2 {
     private static final String GAME_PREFIX = "Game ";
     private static int game = 1;
@@ -11,6 +15,7 @@ public class Step2 {
         System.out.println(PROPERTY_PREFIX);
         System.out.println(BET_PREFIX);
         gamePrint();
+        System.out.println(cards());
 
     }
 
@@ -18,4 +23,18 @@ public class Step2 {
         System.out.println(GAME_PREFIX + game);
         game++;
     }
+
+    // 52장의 카드 프리셋
+    public static List<Integer> cards() {
+        List<Integer> deck = new ArrayList<>();
+        for (int i = 1; i <= 11; i++) {
+            int count = (i == 11) ? 12 : 4; // 11은 12장, 나머지는 4장 
+            for (int j = 0; j < count; j++) {
+                deck.add(i);
+            }
+        }
+        Collections.shuffle(deck);
+        return deck;
+    }
+
 }
