@@ -18,6 +18,7 @@ public class Step2 {
         System.out.println(BET_PREFIX);
         gamePrint();
         System.out.println(cards());
+        cheat();
 
 
     }
@@ -58,13 +59,26 @@ public class Step2 {
 
     private static void resetDeck() {
         deck.clear();
-        for (int i = 0; i <= 11; i++) {
-            int count = (i==11) ? 12 : 4 ;
+        for (int i = 1; i <= 11; i++) {
+            int count = (i == 11) ? 12 : 4;
             for (int j = 0; j < count; j++) {
                 deck.add(i);
             }
         }
         Collections.shuffle(deck);
+    }
+
+    public static void cheat() {
+        int cardsToShow = 6;
+        int deckSize = deck.size();
+
+        if (deckSize < cardsToShow) {
+            cardsToShow = deckSize;
+        }
+
+        List<Integer> cheatCards = deck.subList(0, cardsToShow);
+
+        System.out.println("덱의 카드 " + cheatCards);
     }
 
 }
