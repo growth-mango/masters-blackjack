@@ -130,6 +130,17 @@ public class Step2 {
         } while (true);
     }
 
-
+    // 승자 결정 로직
+    public static String winnerDecision() {
+        // 당신의 패배입니다. 현재 자산: currentProperty
+        // 당신의 승리입니다.
+        if (playerCardTotal() >= 22 || dealerCardTotal() == 21 || playerCardTotal() < dealerCardTotal()) {
+            return "당신의 패배입니다.";
+        } else if (dealerCardTotal() >= 22 || playerCardTotal() == 21 || playerCardTotal() > dealerCardTotal()) {
+            return "당신의 승리입니다.";
+        } else {
+            return "무승부 입니다.";
+        }
+    }
 
 }
