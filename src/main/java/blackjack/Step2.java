@@ -3,11 +3,13 @@ package blackjack;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 
 public class Step2 {
     private static final String GAME_PREFIX = "Game ";
     private static int game = 1;
     private static final String PROPERTY_PREFIX = "현재 재산: ";
+    private static int baseProperty = 1000;
     private static final String BET_PREFIX = "얼마를 거시겠습니까? ";
     private static List<Integer> deck = new ArrayList<>();
 
@@ -68,6 +70,18 @@ public class Step2 {
         Collections.shuffle(deck);
     }
 
+    public static int playerCardTotal(int playerCard) {
+        int base = 0;
+        int total = base + playerCard;
+        return total;
+    }
+
+    public static int dealerCardTotal(int dealerCard) {
+        int base = 0;
+        int total = base + dealerCard;
+        return total;
+    }
+
     public static void cheat() {
         int cardsToShow = 6;
         int deckSize = deck.size();
@@ -80,5 +94,6 @@ public class Step2 {
 
         System.out.println("덱의 카드 " + cheatCards);
     }
+
 
 }
