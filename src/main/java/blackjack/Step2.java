@@ -114,6 +114,22 @@ public class Step2 {
         }
     }
 
+    // 사용자에게 베팅 금액 입력받기
+    public static int getUserBet() {
+        Scanner sc = new Scanner(System.in);
+        int money;
+
+        do {
+            System.out.println(BET_PREFIX);
+            money = sc.nextInt();
+            if (money % 100 == 0 && money <= property && money >= 100) {
+                return money;
+            } else {
+                System.out.println("잘못 입력하셨습니다.");
+            }
+        } while (true);
+    }
+
 
 
 }
