@@ -11,7 +11,6 @@ public class Step2 {
     private static List<Integer> playerCards = new ArrayList<>();
     private static List<Integer> dealerCards = new ArrayList<>();
     private static final String PROPERTY_PREFIX = "현재 재산: ";
-    private static int baseProperty = 1000;
     private static final String BET_PREFIX = "얼마를 거시겠습니까? ";
     private static List<Integer> deck = new ArrayList<>();
 
@@ -100,6 +99,21 @@ public class Step2 {
 
         System.out.println("덱의 카드 " + cheatCards);
     }
+
+    // 현재 자산과 베팅 금액 관련된 로직들
+    // 현재 자산 계산
+    private static int property = 1000;
+
+    public static void currentProperty() {
+        if (playerCardTotal() == 21) {
+            property += (getUserBet() * 2);
+        } else if (winnerDecision().equals("당신의 승리입니다.")) {
+            property += getUserBet();
+        } else {
+            property -= getUserBet();
+        }
+    }
+
 
 
 }
