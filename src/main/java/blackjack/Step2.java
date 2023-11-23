@@ -8,6 +8,8 @@ import java.util.Scanner;
 public class Step2 {
     private static final String GAME_PREFIX = "Game ";
     private static int game = 1;
+    private static List<Integer> playerCards = new ArrayList<>();
+    private static List<Integer> dealerCards = new ArrayList<>();
     private static final String PROPERTY_PREFIX = "현재 재산: ";
     private static int baseProperty = 1000;
     private static final String BET_PREFIX = "얼마를 거시겠습니까? ";
@@ -70,15 +72,19 @@ public class Step2 {
         Collections.shuffle(deck);
     }
 
-    public static int playerCardTotal(int playerCard) {
-        int base = 0;
-        int total = base + playerCard;
-        return total;
+    public static int playerCardTotal() {
+        return calculateTotal(playerCards);
     }
 
-    public static int dealerCardTotal(int dealerCard) {
-        int base = 0;
-        int total = base + dealerCard;
+    public static int dealerCardTotal() {
+        return calculateTotal(dealerCards);
+    }
+
+    private static int calculateTotal(List<Integer> cards) {
+        int total = 0;
+        for (int card : cards) {
+            total += card;
+        }
         return total;
     }
 
