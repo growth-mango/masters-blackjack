@@ -168,6 +168,23 @@ public class Step2 {
         return false;
     }
 
+    // 카드 추가 여부 입력받기
+    public static boolean getMoreCard() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("카드를 더 받겠습니까? (Y / N) ");
+        String answer = sc.nextLine();
+
+        while (true) {
+            if (answer.equalsIgnoreCase("N")) {
+                break;
+            } else if (answer.equalsIgnoreCase("Y")) {
+                return true;
+            }
+            System.out.println("잘못 입력하셨습니다.");
+        }
+        return false;
+    }
+
 
 
 
