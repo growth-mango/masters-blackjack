@@ -11,15 +11,25 @@ public class Step2 {
     private static List<Integer> playerCards = new ArrayList<>();
     private static List<Integer> dealerCards = new ArrayList<>();
     private static final String PROPERTY_PREFIX = "현재 재산: ";
+    private static int property = 1000;
     private static final String BET_PREFIX = "얼마를 거시겠습니까? ";
     private static List<Integer> deck = new ArrayList<>();
 
     public static void main(String[] args) {
         System.out.println("간단 카드 게임을 시작합니다.");
         resetDeck();
-        System.out.println(PROPERTY_PREFIX);
-        System.out.println(BET_PREFIX);
-        gamePrint();
+
+        System.out.println(PROPERTY_PREFIX + property); // 현재자산
+        currentProperty(); // 현재 자산 계산 로직
+
+        getUserBet(); // 베팅 금액 입력받기
+        // System.out.println(BET_PREFIX);
+
+        gamePrint(); // 게임 프린트
+        System.out.println(playerCard());
+        winnerDecision(); // 승패 결정 로직
+        getMoreGame(); // 한 게임 더?
+        System.out.println(dealerCard());
         System.out.println(cards());
         cheat();
 
@@ -102,8 +112,6 @@ public class Step2 {
 
     // 현재 자산과 베팅 금액 관련된 로직들
     // 현재 자산 계산
-    private static int property = 1000;
-
     public static void currentProperty() {
         if (playerCardTotal() == 21) {
             property += (getUserBet() * 2);
@@ -120,8 +128,8 @@ public class Step2 {
         int money;
 
         do {
-            System.out.println(BET_PREFIX);
-            money = sc.nextInt();
+            System.out.print(BET_PREFIX);
+            money = sc.nextInt(); // 입력은 do 구문 실행 후 받아야함
             if (money % 100 == 0 && money <= property && money >= 100) {
                 return money;
             } else {
@@ -142,5 +150,26 @@ public class Step2 {
             return "무승부 입니다.";
         }
     }
+
+    // 게임 재진행 여부 확인
+    public static boolean getMoreGame() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("한 게임 더 하시겠습니까? (Y / N) ");
+        String answer = sc.nextLine();
+
+        while (true) {
+            if (answer.equalsIgnoreCase("N")) {
+                break;
+            } else if (answer.equalsIgnoreCase("Y")) {
+                return true;
+            }
+            System.out.println("잘못 입력하셨습니다.");
+        }
+        return false;
+    }
+
+
+
+
 
 }
