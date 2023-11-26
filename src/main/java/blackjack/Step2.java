@@ -16,25 +16,63 @@ public class Step2 {
     private static List<Integer> deck = new ArrayList<>();
 
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
         System.out.println("간단 카드 게임을 시작합니다.");
-        resetDeck();
 
-        System.out.println(PROPERTY_PREFIX + property); // 현재자산
-        currentProperty(); // 현재 자산 계산 로직
+        while (true){
+           // 현재 자산 출력
+            System.out.println(PROPERTY_PREFIX + property);
 
-        getUserBet(); // 베팅 금액 입력받기
-        // System.out.println(BET_PREFIX);
+            // 베팅 금액 입력
+            int betAmount = getUserBet();
 
-        gamePrint(); // 게임 프린트
-        System.out.println(playerCard());
-        winnerDecision(); // 승패 결정 로직
-        getMoreGame(); // 한 게임 더?
-        System.out.println(dealerCard());
-        System.out.println(cards());
-        cheat();
+            // 게임 시작
+            gamePrint();
 
+            // 초기 카드 분배
+            playerCards.clear();
+            dealerCards.clear();
+            playerCards.add(drawCard());
+            dealerCards.add(drawCard());
 
-    }
+            // 플레이어의 카드 합계 출력
+            System.out.println("플레이어의 카드: " + playerCards + " 합계: " + calculateTotal(playerCards));
+
+            // 플레이어가 카드를 더 받을지 결정
+            while (getMoreCard()){
+                playerCards.add(drawCard());
+                System.out.println("플레이어의 카드: " + playerCards + " 합계: " + calculateTotal(playerCards));
+                if (calculateTotal(playerCards) > 21){
+                    System.out.println("플레이어 버스트! 당신의 패배입니다.");
+                    property -= betAmount;
+                    break;
+                }
+            }
+
+            // 딜러의 차례
+            while (calculateTotal(dealerCards) <= 16){
+                dealerCards.add(drawCard());
+            }
+            System.out.println("딜러의 카드 : " + dealerCards + " 합계: " + calculateTotal(dealerCards));
+
+            // 승패 결정 및 자산 갱신
+            String result = winnerDecision();
+            System.out.println(result);
+            if (result.equals("당신의 승리입니다.")) {
+                property += (playerCardTotal() == 21) ? betAmount * 2 : betAmount;
+            } else if (result.equals("당신의 패배입니다.")) {
+                property -= betAmount;
+            }
+
+            // 게임 재진행 여부 확인
+            if (!getMoreGame()) {
+                System.out.println("게임을 종료합니다.");
+                break;
+            }
+        }
+
+        sc.close();
+        }
 
     public static void gamePrint() {
         System.out.println(GAME_PREFIX + game);
@@ -184,9 +222,4 @@ public class Step2 {
         }
         return false;
     }
-
-
-
-
-
 }
