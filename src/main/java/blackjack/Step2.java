@@ -19,6 +19,7 @@ public class Step2 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.println("간단 카드 게임을 시작합니다.");
+        resetDeck();
 
         while (true){
            // 현재 자산 출력
@@ -26,6 +27,7 @@ public class Step2 {
 
             // 베팅 금액 입력
             int betAmount = getUserBet();
+            System.out.println();
 
             // 게임 시작
             gamePrint();
@@ -37,14 +39,16 @@ public class Step2 {
             dealerCards.add(drawCard());
 
             // 플레이어의 카드 합계 출력
-            System.out.println("플레이어의 카드: " + playerCards + " 합계: " + calculateTotal(playerCards));
+            System.out.println("플레이어: " + formatCards(playerCards) + "\n총합: " + calculateTotal(playerCards));
 
             // 플레이어가 카드를 더 받을지 결정
             while (getMoreCard()){
+                System.out.println();
+                gamePrint();
                 playerCards.add(drawCard());
-                System.out.println("플레이어의 카드: " + playerCards + " 합계: " + calculateTotal(playerCards));
+                System.out.println("플레이어: " + formatCards(playerCards) + " \n총합: " + calculateTotal(playerCards));
                 if (calculateTotal(playerCards) > 21){
-                    System.out.println("플레이어 버스트! 당신의 패배입니다.");
+                    System.out.println("당신의 패배입니다. 현재 재산: " + property);
                     property -= betAmount;
                     break;
                 }
@@ -54,7 +58,7 @@ public class Step2 {
             while (calculateTotal(dealerCards) <= 16){
                 dealerCards.add(drawCard());
             }
-            System.out.println("딜러의 카드 : " + dealerCards + " 합계: " + calculateTotal(dealerCards));
+            System.out.println("딜러 : " + formatCards(dealerCards) + " \n딜러의 카드 합계는 " + calculateTotal(dealerCards) + "입니다.");
 
             // 승패 결정 및 자산 갱신
             String result = winnerDecision();
@@ -65,9 +69,11 @@ public class Step2 {
                 property -= betAmount;
             }
 
+            System.out.println("현재 남은 자산: " + property);
+
             // 게임 재진행 여부 확인
             if (!getMoreGame()) {
-                System.out.println("게임을 종료합니다.");
+                System.out.println(property + "원의 자산이 남았습니다.\n플레이 해 주셔서 감사합니다.");
                 break;
             }
         }
