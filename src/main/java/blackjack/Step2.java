@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Step2 {
     private static final String GAME_PREFIX = "Game ";
@@ -90,6 +91,12 @@ public class Step2 {
         }
         Collections.shuffle(deck);
         return deck;
+    }
+
+    private static String formatCards(List<Integer> cards) {
+        return cards.stream()
+                .map(card -> "[" + card + "]")
+                .collect(Collectors.joining(" ")); // 공백으로 구분된 단일 문자열로 결합
     }
 
     public static int playerCard() {
